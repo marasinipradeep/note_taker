@@ -1,0 +1,19 @@
+{
+  "name": "note_taker",
+  "version": "1.0.0",
+  "description": "This application will use an express backend and save and retrieve note data from a JSON file.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marasinipradeep/note_taker.git"
+  },
+  "author": "pradeep marasini",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marasinipradeep/note_taker/issues"
+  },
+  "homepage": "https://github.com/marasinipradeep/note_taker#readme"
+}
