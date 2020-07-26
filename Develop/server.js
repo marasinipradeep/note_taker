@@ -3,6 +3,7 @@ const app = express()
 const path = require("path")
 const fs = require("fs")
 //let DB = require("./db/db.json")
+const uuid = require("uuid/v4")
 
 //Port listen on
 const PORT = process.env.PORT || 3000
@@ -15,8 +16,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 
 
-  
-
 //return the index.html file
 app.get("/", (req, res) => res.sendFile(path.join(__dirname + "/public/index.html")))
 
@@ -27,34 +26,27 @@ app.get("/notes", (req, res) => res.sendFile(path.join(__dirname + "/public/note
 //API for renderning  notes stored on db
 app.get("/api/notes", (req, res) => {
 
-    fs.readFile(path.join(__dirname + '/db/db.json'), "utf8", function(error, data) {
-
-        if (error) {
-          return console.log(error);
-        }
-      
-        console.log(`the data inside DB is ${data}`);
-        res.json(data)
-      
-      });
-    
+   res.sendFile(path.join(__dirname, "/db/db.json"))
 })
 
 //API for storing user added note and renderning updated  notes stored on db.json
 app.post("/api/notes", (req, res) => {
+    let newNote ={
+        id:uuid(),
+        title:req.body.title,
+        text:req.body.text
+    };
 
-    let newNoteTitle = req.body.title
-    let newNoteText = req.body.text
-
-    DB.appenFile({ title: newNoteTitle, text: newNoteText })
-    console.log(`I am on line 32  ${newNoteTitle} and text is ${newNoteText} ${DB}`)
-    res.json(DB)
+    let oldNote =JSON.parse(fs.readFileSync(path.join(__dirname,"./db/db.json"),"utf-8")) 
+    oldNote.push(newNote)
+    fs.writeFileSync("./db/db.json",JSON.stringify(oldNote))
+    res.json(oldNote)
 })
 
 app.delete("/api/notes/:id", (req, res) => {
 
     let choosen = req.params.id
-   console.log(`inside /api/notes/:id ${choosen}`)
+    console.log(`inside /api/notes/:id ${choosen}`)
 })
 
 //Port listening on
