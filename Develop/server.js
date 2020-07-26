@@ -1,26 +1,43 @@
 const express = require("express")
 const app = express()
 const path = require("path")
+const fs = require("fs")
+//let DB = require("./db/db.json")
 
-let DB = require("./db/db.json")
-
+//Port listen on
 const PORT = process.env.PORT || 3000
 
+//Reading static file inside public folders
 app.use(express.static(__dirname + '/public'));
 
+//Body parsor
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 
-//Route index 
+
+  
+
+//return the index.html file
 app.get("/", (req, res) => res.sendFile(path.join(__dirname + "/public/index.html")))
 
-//Route to take notes 
+//return the notes.html file. 
 app.get("/notes", (req, res) => res.sendFile(path.join(__dirname + "/public/notes.html")))
 
 
 //API for renderning  notes stored on db
 app.get("/api/notes", (req, res) => {
-    res.json(DB)
+
+    fs.readFile(path.join(__dirname + '/db/db.json'), "utf8", function(error, data) {
+
+        if (error) {
+          return console.log(error);
+        }
+      
+        console.log(`the data inside DB is ${data}`);
+        res.json(data)
+      
+      });
+    
 })
 
 //API for storing user added note and renderning updated  notes stored on db.json
@@ -29,7 +46,7 @@ app.post("/api/notes", (req, res) => {
     let newNoteTitle = req.body.title
     let newNoteText = req.body.text
 
-    DB.push({ title: newNoteTitle, text: newNoteText })
+    DB.appenFile({ title: newNoteTitle, text: newNoteText })
     console.log(`I am on line 32  ${newNoteTitle} and text is ${newNoteText} ${DB}`)
     res.json(DB)
 })
