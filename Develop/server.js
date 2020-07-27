@@ -43,10 +43,13 @@ app.post("/api/notes", (req, res) => {
     res.json(oldNote)
 })
 
+//receive a query parameter containing the id of a note to delete.
 app.delete("/api/notes/:id", (req, res) => {
-
     let choosen = req.params.id
-    console.log(`inside /api/notes/:id ${choosen}`)
+    let oldNote =JSON.parse(fs.readFileSync(path.join(__dirname,"./db/db.json"),"utf-8"))
+    const newNote =oldNote.filter(oldNote=>oldNote.id != choosen)
+    fs.writeFileSync("./db/db.json",JSON.stringify(newNote))
+    res.send(newNote)
 })
 
 //Port listening on
