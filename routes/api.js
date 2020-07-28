@@ -1,5 +1,6 @@
 const fs = require("fs")
-const uuid = require("uuid/v4")
+//const uuid = require("uuid")
+const { v4: uuid } = require('uuid')
 const path = require("path")
 
 //API for renderning  notes stored on db
