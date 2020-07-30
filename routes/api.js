@@ -10,6 +10,7 @@ app.get("/api/notes", (req, res) => res.sendFile(path.join(__dirname, "../db/db.
  //API for storing user added note and renderning updated  notes stored on db.json
  app.post("/api/notes", (req, res) => {
      let newNote ={
+         //UUID generates unique id
          id:uuid(),
          title:req.body.title,
          text:req.body.text

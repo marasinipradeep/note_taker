@@ -84,7 +84,7 @@ First of all, Clone the project from github to local machine.Alternatively, you 
 <a href= "https://www.youtube.com/watch?v=qxuPqlNNJaI&feature=youtu.be">Click here for demo video link</a>
 
 ## Live Url
-<a href= "">Click here for live url</a>
+<a href= "https://notetakerexpresspradeep.herokuapp.com/">Click here for live url</a>
 
 ```
 Note :- To view this readme.md file in neat and cleaner view.On the top of header of README.md right click and click on open preview.
